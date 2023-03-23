@@ -1,68 +1,79 @@
 import React, { useEffect, useState } from "react";
-import Album from "../shared/album";
-import Footer from "../shared/footer";
-import Header from "../shared/header";
+import { FaRecordVinyl, FaUser } from "react-icons/fa";
+import Layout from "../shared/layout";
+import SearchAlbum from "./searchAlbum";
+import SearchArtist from "./searchArtist";
 
-export default function Search({ albums, term, page, user }) {
+export default function Search({ albums, artists, term, page, user, tab }) {
     const [searchTerm, setSearchTerm] = useState(term);
+    const [selectedTab, setSelectedTab] = useState(tab);
+
     useEffect(() => {
         setSearchTerm(term);
     });
 
-    let pageData = {
-        page: "search",
-        user,
+
+    const handleSelectedTab = (value) => {
+        setSelectedTab(value);
     };
     return (
-        <div className="container mx-auto">
-            <Header data={pageData} />
-            <form className=" h-14 my-4">
-                <div className="rounded border flex">
-                    <input
-                        className="rounded flex-auto outline-none indent-1"
-                        type="text"
-                        name="q"
-                        defaultValue={searchTerm}
-                        onKeyUpCapture={(el) => {
-                            setSearchTerm(el.target.value);
-                        }}
-                    />
-                    <button
-                        className=" rounded-r bg-blue-700 px-3 text-white"
-                        type="submit"
-                    >
-                        search
-                    </button>
-                </div>
-            </form>
-            <ul className="divide-y divide-slate-100">
-                {albums.map((album, id) => {
-                    return <Album album={album} key={id} />;
-                })}
-            </ul>
-
-            <div className="flex flex-col items-center">
-                <div className="inline-flex mt-2 xs:mt-0">
-                    {page > 1 && (
+        <Layout page={"search"} user={user}>
+            <div className="border-b border-gray-200 dark:border-gray-700">
+                <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li className="mr-2">
                         <a
-                            href={`?q=${searchTerm}&page=${Number(page) - 1}`}
-                            className="px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            href="/search/albums"
+                            {...(selectedTab === 1
+                                ? {
+                                      className:
+                                          "inline-flex p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group",
+                                  }
+                                : {
+                                      className:
+                                          "inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group",
+                                  })}
+                            onClick={() => handleSelectedTab(1)}
                         >
-                            Prev
+                            <FaRecordVinyl className="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" />
+                            Album Search
                         </a>
-                    )}
-                    {searchTerm && (
+                    </li>
+                    <li className="mr-2">
                         <a
-                            href={`?q=${searchTerm}&page=${Number(page) + 1}`}
-                            className="px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            href="/search/artists"
+                            {...(selectedTab === 2
+                                ? {
+                                      className:
+                                          "inline-flex p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group",
+                                  }
+                                : {
+                                      className:
+                                          "inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group",
+                                  })}
+                            onClick={() => handleSelectedTab(2)}
                         >
-                            Next
+                            <FaUser className="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" />
+                            Artist Search
                         </a>
-                    )}
-                </div>
+                    </li>
+                </ul>
             </div>
-
-            <Footer />
-        </div>
+            {selectedTab == 1 && (
+                <SearchAlbum
+                    albums={albums}
+                    term={term}
+                    page={page}
+                    user={user}
+                />
+            )}
+            {selectedTab == 2 && (
+                <SearchArtist
+                    artists={artists ?? []}
+                    term={term}
+                    page={page}
+                    user={user}
+                />
+            )}
+        </Layout>
     );
 }

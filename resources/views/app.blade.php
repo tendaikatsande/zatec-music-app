@@ -7,6 +7,7 @@
     @viteReactRefresh
     @vite('resources/js/app.jsx')
     @vite('resources/css/app.css')
+    @routes(['albums.destroy','albums.show'])
     @inertiaHead
 </head>
 

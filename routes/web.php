@@ -22,16 +22,21 @@ use Inertia\Inertia;
 
 
 //Auth Routes
-Route::get('/', [LastFmController::class, 'index']);
+Route::get('/', [LastFmController::class, 'getAlbums']);
+Route::get('signout', [LoginController::class, 'signOut']);
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 //Last Fm Routes
-Route::resource('/albums', LastFmController::class);
+Route::get('/search/albums', [LastFmController::class, 'getAlbums']);
+Route::get('/search/artists', [LastFmController::class, 'getArtists']);
+
+
 Route::get('albums/{album}/{artist}', [LastFmController::class, 'getAlbumInfo']);
+Route::get('artists/{artist}', [LastFmController::class, 'getArtistInfo']);
 
 
 Route::prefix('favourite')->middleware(['auth'])->group(function () {
-    Route::resource('/albums', FavouriteAlbumController::class);
-    Route::resource('/artists', FavouriteArtistController::class);
+    Route::resource('/album', FavouriteAlbumController::class);
+    Route::resource('/artist', FavouriteArtistController::class);
 });

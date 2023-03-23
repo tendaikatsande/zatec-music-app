@@ -15,8 +15,8 @@ class FavouriteAlbumController extends Controller
     public function index(Request $request)
     {
         //
-        $favourites = FavouriteAlbum::paginate(10);
-        dd($favourites);
+        $favourites = FavouriteAlbum::paginate(8);
+        // dd($favourites);
         return Inertia::render('Layout/components/favouriteAlbums', ['user' => Auth::user(), 'favourites' => $favourites]);
     }
 
@@ -31,9 +31,6 @@ class FavouriteAlbumController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-
-
-
     {
 
         $user = Auth::user();
@@ -48,7 +45,7 @@ class FavouriteAlbumController extends Controller
         $favourite->fill($request->all());
         $favourite->user()->associate($user);
         $favourite->save();
-        return to_route('/favourite/albums');
+        return redirect('/favourite/album');
     }
 
     /**
@@ -78,8 +75,10 @@ class FavouriteAlbumController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavouriteAlbum $favouriteAlbum)
+    public function destroy(FavouriteAlbum $favouriteAlbum, $id)
     {
         //
+        $favouriteAlbum->destroy($id);
+        return redirect('/favourite/album');
     }
 }

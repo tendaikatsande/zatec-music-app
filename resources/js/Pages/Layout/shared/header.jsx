@@ -1,200 +1,260 @@
 import React from "react";
 import Login from "../../Auth/login";
 
-export default function Header({ data }) {
+export default function Header({ user }) {
     return (
         <>
-           
-
             <nav
-                className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-                aria-label="Global"
+                className="flex-no-wrap relative flex w-full items-center justify-between bg-neutral-100 py-4 shadow-md shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start"
+                data-te-navbar-ref
             >
-                <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
-                        <span className="sr-only">Your Company</span>
-                        <img
-                            className="h-8 w-auto"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                            alt=""
-                        />
-                    </a>
-                </div>
-                <div className="flex lg:hidden">
+                <div className="flex w-full flex-wrap items-center justify-between px-6">
                     <button
+                        className="block border-0 bg-transparent py-2 px-2.5 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
                         type="button"
-                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                        data-te-collapse-init
+                        data-te-target="#navbarSupportedContent1"
+                        aria-controls="navbarSupportedContent1"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
                     >
-                        <span className="sr-only">Open main menu</span>
-                        <svg
-                            className="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                            />
-                        </svg>
-                    </button>
-                </div>
-                <div className="hidden lg:flex lg:gap-x-12">
-                    <div className="relative">
-                        <button
-                            type="button"
-                            className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
-                            aria-expanded="false"
-                        >
-                            Product
+                        <span className="[&>svg]:w-7">
                             <svg
-                                className="h-5 w-5 flex-none text-gray-400"
-                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
                                 fill="currentColor"
-                                aria-hidden="true"
+                                className="h-7 w-7"
                             >
                                 <path
-                                    fill-rule="evenodd"
-                                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                    clip-rule="evenodd"
+                                    fillRule="evenodd"
+                                    d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                                    clipRule="evenodd"
                                 />
                             </svg>
-                        </button>
+                        </span>
+                    </button>
+                    <div
+                        className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+                        id="navbarSupportedContent1"
+                        data-te-collapse-item
+                    >
+                        <a
+                            className="mt-2 mr-2 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mt-0"
+                            href="#"
+                        >
+                            <span className=" font-bold from-neutral-500">
+                                Zatec Music
+                            </span>
+                        </a>
+                        <ul
+                            className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
+                            data-te-navbar-nav-ref
+                        >
+                            <li className="lg:pr-2" data-te-nav-item-ref>
+                                <a
+                                    className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
+                                    href="/"
+                                    data-te-nav-link-ref
+                                >
+                                    Search
+                                </a>
+                            </li>
 
-                        {/* <div className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-          <div className="p-4">
-            <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
-                </svg>
-              </div>
-              <div className="flex-auto">
-                <a href="#" className="block font-semibold text-gray-900">
-                  Analytics
-                  <span className="absolute inset-0"></span>
-                </a>
-                <p className="mt-1 text-gray-600">Get a better understanding of your traffic</p>
-              </div>
-            </div>
-
-            <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
-                </svg>
-              </div>
-              <div className="flex-auto">
-                <a href="#" className="block font-semibold text-gray-900">
-                  Engagement
-                  <span className="absolute inset-0"></span>
-                </a>
-                <p className="mt-1 text-gray-600">Speak directly to your customers</p>
-              </div>
-            </div>
-
-            <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33" />
-                </svg>
-              </div>
-              <div className="flex-auto">
-                <a href="#" className="block font-semibold text-gray-900">
-                  Security
-                  <span className="absolute inset-0"></span>
-                </a>
-                <p className="mt-1 text-gray-600">Your customers’ data will be safe and secure</p>
-              </div>
-            </div>
-
-            <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
-                </svg>
-              </div>
-              <div className="flex-auto">
-                <a href="#" className="block font-semibold text-gray-900">
-                  Integrations
-                  <span className="absolute inset-0"></span>
-                </a>
-                <p className="mt-1 text-gray-600">Connect with third-party tools</p>
-              </div>
-            </div>
-
-            <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
-              <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-              </div>
-              <div className="flex-auto">
-                <a href="#" className="block font-semibold text-gray-900">
-                  Automations
-                  <span className="absolute inset-0"></span>
-                </a>
-                <p className="mt-1 text-gray-600">Build strategic funnels that will convert</p>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-            <a href="#" className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100">
-              <svg className="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm6.39-2.908a.75.75 0 01.766.027l3.5 2.25a.75.75 0 010 1.262l-3.5 2.25A.75.75 0 018 12.25v-4.5a.75.75 0 01.39-.658z" clip-rule="evenodd" />
-              </svg>
-              Watch demo
-            </a>
-
-            <a href="#" className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100">
-              <svg className="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" />
-              </svg>
-              Contact sales
-            </a>
-          </div>
-        </div> */}
+                            {user && (
+                                <>
+                                    <li
+                                        className="lg:pr-2"
+                                        data-te-nav-item-ref
+                                    >
+                                        <a
+                                            className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                                            href="/favourite/album"
+                                            data-te-nav-link-ref
+                                        >
+                                            My Albums
+                                        </a>
+                                    </li>
+                                    <li
+                                        className="lg:pr-2"
+                                        data-te-nav-item-ref
+                                    >
+                                        <a
+                                            className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                                            href="/favourite/artist"
+                                            data-te-nav-link-ref
+                                        >
+                                            My Artists
+                                        </a>
+                                    </li>
+                                </>
+                            )}
+                        </ul>
                     </div>
 
-                    <a
-                        href="#"
-                        className="text-sm font-semibold leading-6 text-gray-900"
-                    >
-                        Features
-                    </a>
-                    <a
-                        href="#"
-                        className="text-sm font-semibold leading-6 text-gray-900"
-                    >
-                        Marketplace
-                    </a>
-                    <a
-                        href="#"
-                        className="text-sm font-semibold leading-6 text-gray-900"
-                    >
-                        Company
-                    </a>
-                </div>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    {!data.user && <Login />}
-                    {data.user && (
-                       
-                       
-                            <a
-                        href="#"
-                        className="text-sm font-semibold leading-6 text-gray-900"
-                    >
-                        {data.user.name}<span aria-hidden="true">&rarr;</span>
-                    </a>
-              
-                    )}
-                
+                    <div className="relative flex items-center">
+                        {user && (
+                            <>
+                                <a className=" p-4 mx-2" href="/signout">
+                                    Sign out
+                                </a>
+                                <div className="relative" data-te-dropdown-ref>
+                                    <a
+                                        className="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
+                                        href="#"
+                                        id="dropdownMenuButton2"
+                                        role="button"
+                                        data-te-dropdown-toggle-ref
+                                        aria-expanded="false"
+                                    >
+                                        <img
+                                            src={user.image}
+                                            className="rounded-full"
+                                            height={"25px"}
+                                            width={"25px"}
+                                            alt=""
+                                            loading="lazy"
+                                        />
+                                    </a>
+                                    <ul
+                                        className="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+                                        aria-labelledby="dropdownMenuButton2"
+                                        data-te-dropdown-menu-ref
+                                    >
+                                        <li>
+                                            <a
+                                                className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                                                href="#"
+                                                data-te-dropdown-item-ref
+                                            >
+                                                Action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                                                href="#"
+                                                data-te-dropdown-item-ref
+                                            >
+                                                Another action
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className="block w-full whitespace-nowrap bg-transparent py-2 px-4 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                                                href="#"
+                                                data-te-dropdown-item-ref
+                                            >
+                                                Something else here
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </>
+                        )}
+
+                        {!user && <Login />}
+                    </div>
                 </div>
             </nav>
         </>
     );
+}
+
+{
+    /* <nav
+className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+aria-label="Global"
+>
+<div className="flex lg:flex-1">
+    <a href="#" className="-m-1.5 p-1.5">
+        <span className="sr-only">Your Company</span>
+        <img
+            className="h-8 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt=""
+        />
+    </a>
+</div>
+<div className="flex lg:hidden">
+    <button
+        type="button"
+        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+    >
+        <span className="sr-only">Open main menu</span>
+        <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+        </svg>
+    </button>
+</div>
+<div className="hidden lg:flex lg:gap-x-12">
+    <div className="relative">
+        <button
+            type="button"
+            className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
+            aria-expanded="false"
+        >
+            Product
+            <svg
+                className="h-5 w-5 flex-none text-gray-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clip-rule="evenodd"
+                />
+            </svg>
+        </button>
+
+       
+    </div>
+
+    <a
+        href="#"
+        className="text-sm font-semibold leading-6 text-gray-900"
+    >
+        Features
+    </a>
+    <a
+        href="#"
+        className="text-sm font-semibold leading-6 text-gray-900"
+    >
+        Marketplace
+    </a>
+    <a
+        href="#"
+        className="text-sm font-semibold leading-6 text-gray-900"
+    >
+        Company
+    </a>
+</div>
+<div className="hidden lg:flex lg:flex-1 lg:justify-end">
+    {!data.user && <Login />}
+    {data.user && (
+       
+       
+            <a
+        href="#"
+        className="text-sm font-semibold leading-6 text-gray-900"
+    >
+        {data.user.name}<span aria-hidden="true">&rarr;</span>
+    </a>
+
+    )}
+
+</div>
+</nav> */
 }

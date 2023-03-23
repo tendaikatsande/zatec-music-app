@@ -213,6 +213,7 @@ return [
     ])->toArray(),
 
 
-    'last_fm_api'=>env('LAST_FM_API'),
+    'last_fm_api' => env('LAST_FM_API'),
+    'last_fm_api_key' => env('LAST_FM_API_KEY'),
 
 ];

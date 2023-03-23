@@ -14,6 +14,8 @@ return new class extends Migration
     {
         Schema::create('favourite_artists', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('mbid')->nullable();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

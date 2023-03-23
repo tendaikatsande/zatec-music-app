@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\FavouriteArtist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class FavouriteArtistController extends Controller
 {
@@ -13,6 +15,8 @@ class FavouriteArtistController extends Controller
     public function index()
     {
         //
+        $favourites = FavouriteArtist::paginate(8);
+        return Inertia::render('Layout/components/favouriteArtists', ['user' => Auth::user(), 'favourites' => $favourites]);
     }
 
     /**
@@ -28,7 +32,20 @@ class FavouriteArtistController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = Auth::user();
         //
+        $validated =  $request->validate([
+            'name' => ['required'],
+            'artist' => ['required'],
+            'mbid' => [],
+        ]);
+
+        $favourite = new FavouriteArtist();
+        $favourite->fill($request->all());
+        $favourite->user()->associate($user);
+        $favourite->save();
+        return redirect('/favourite/artist');
     }
 
     /**
@@ -58,8 +75,10 @@ class FavouriteArtistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavouriteArtist $favouriteArtist)
+    public function destroy(FavouriteArtist $favouriteArtist, $id)
     {
         //
+        $favouriteArtist->destroy($id);
+        return redirect('/favourite/artist');
     }
 }

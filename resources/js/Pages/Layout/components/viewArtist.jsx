@@ -2,17 +2,17 @@ import { router } from "@inertiajs/react";
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 import Layout from "../shared/layout";
-export default function ViewAlbumDetails({ album, user }) {
-    console.log(album);
+export default function ViewArtist({ artist, user }) {
+    console.log(artist);
     return (
-        <Layout page={"view-album"} user={user}>
+        <Layout page={"view-artist"} user={user}>
             <div className="min-h-screen w-full mx-auto bg-gray-100 flex flex-col ">
                 <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-32">
                     <div className=" absolute inset-0 overflow-hidden bg-red-200">
                         <img
                             className=" object-cover h-auto w-full"
                             src={
-                                album.image.filter(
+                                artist.image.filter(
                                     (img) => img.size == "large"
                                 )[0]["#text"]
                             }
@@ -25,7 +25,7 @@ export default function ViewAlbumDetails({ album, user }) {
                             <img
                                 className="object-cover w-36 h-36"
                                 src={
-                                    album.image.filter(
+                                    artist.image.filter(
                                         (img) => img.size == "large"
                                     )[0]["#text"]
                                 }
@@ -33,53 +33,51 @@ export default function ViewAlbumDetails({ album, user }) {
                             />
                         </div>
                         <div className="text-white pt-12">
-                            <h3 className="font-bold">{album.name}</h3>
+                            <h3 className="font-bold">{artist.name}</h3>
                             <div className="text-sm opacity-60">
-                                {album.artist}
+                                {artist.artist}
                             </div>
                             <div className="mt-8 text-gray-400">
                                 <div className="flex items-center space-x-2 text-xs">
-                                    <span>{album.artist}</span>{" "}
+                                    <span>{artist.artist}</span>{" "}
                                     <span className="border rounded px-2">
-                                        Tracks ({album.tracks.track.length ?? 0}
-                                        )
+                                        Played ({artist.stats.playcount})
                                     </span>{" "}
                                     <span className="border rounded px-2">
                                         {" "}
-                                        Published - {album.wiki?.published}
+                                        Published - {artist.bio?.published}
                                     </span>
-
-                                    {user && <button
-                                        className="p-2 hover:bg-slate-300 rounded-full"
-                                        title="favourite the album"
-                                        onClick={() => {
-                                            router.post(
-                                                "/favourite/album",
-                                                album
-                                            );
-                                        }}
-                                    >
-                                        <FaHeart className=" hover:text-red-600 text-gray-400" />{" "}
-                                    </button> }
-                                    
+                                    {user && (
+                                        <button
+                                            className="p-2 hover:bg-slate-300 rounded-full"
+                                            title="favourite the artist"
+                                            onClick={() => {
+                                                router.post(
+                                                    "/favourite/artist",
+                                                    artist
+                                                );
+                                            }}
+                                        >
+                                            <FaHeart className=" hover:text-red-600 text-gray-400" />{" "}
+                                        </button>
+                                    )}
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-                <div className="" dangerouslySetInnerHTML={{__html:album.wiki?.summary}}/>
-
-
+                <div
+                    className=""
+                    dangerouslySetInnerHTML={{ __html: artist.bio?.summary }}
+                />
 
                 <div>
-                    {album.tracks.track.map((track,i) => {
-                        return <div className=" bg-slate-300" key={i}>
-                            <div></div>
-                        </div>;
+                    {artist.similar.artist.map((_artist, i) => {
+                        return (
+                            <div className=" bg-slate-300" key={i}>
+                                <div>{_artist.name}</div>
+                            </div>
+                        );
                     })}
                 </div>
             </div>

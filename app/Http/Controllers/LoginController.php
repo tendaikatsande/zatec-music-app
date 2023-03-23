@@ -67,5 +67,9 @@ class LoginController extends Controller
     }
 
 
-    
+    public function  signOut()
+    {
+        Auth::logout();
+        return redirect('/albums');
+    }
 }

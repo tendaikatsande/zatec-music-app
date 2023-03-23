@@ -1,12 +1,14 @@
 import { router } from "@inertiajs/react";
-import { FaEye, FaHeart } from "react-icons/fa";
 import React from "react";
-export default function Album ({ album, user }) {
+import { FaEye, FaHeart } from "react-icons/fa";
+export default function Artist({ artist, user }) {
     return (
         <article className="flex items-start space-x-6 p-6">
             <img
                 src={
-                    album.image.filter((img) => img.size == "small")[0]["#text"]
+                    artist.image.filter((img) => img.size == "small")[0][
+                        "#text"
+                    ]
                 }
                 alt=""
                 width="60"
@@ -15,7 +17,7 @@ export default function Album ({ album, user }) {
             />
             <div className="min-w-0 relative flex-auto">
                 <h2 className="font-semibold text-slate-900 truncate pr-20">
-                    {album.name}
+                    {artist.name}
                 </h2>
                 <dl className="mt-2 flex flex-wrap text-sm leading-6 font-medium">
                     <div className="absolute top-0 right-0 flex items-center space-x-1">
@@ -26,9 +28,12 @@ export default function Album ({ album, user }) {
                             {user && (
                                 <button
                                     className="p-2 hover:bg-slate-300 rounded-full"
-                                    title="favourite the album"
+                                    title="favourite the artist"
                                     onClick={() => {
-                                        router.post("/favourite/album", album);
+                                        router.post(
+                                            "/favourite/artist",
+                                            artist
+                                        );
                                     }}
                                 >
                                     <FaHeart className=" hover:text-red-600 text-gray-400" />{" "}
@@ -38,10 +43,10 @@ export default function Album ({ album, user }) {
                         <dd>
                             <button
                                 className="p-2 hover:bg-slate-300 rounded-full"
-                                title="view the album"
+                                title="view the artist"
                                 onClick={() => {
                                     router.get(
-                                        `/albums/${album.name}/${album.artist}`
+                                        `/artists/${artist.name}`
                                     );
                                 }}
                             >
@@ -52,16 +57,16 @@ export default function Album ({ album, user }) {
                 </dl>
                 <dl className="mt-2 flex flex-wrap text-sm leading-6 font-medium">
                     <div>
-                        <dt className="sr-only">Artist</dt>
+                        <dt className="sr-only">Listeners</dt>
                         <dd className="px-1.5 ring-1 ring-slate-200 rounded">
-                            {album.artist}
+                            listeners - {artist.listeners}
                         </dd>
                     </div>
 
                     <div className="flex-none w-full mt-2 font-normal">
                         <dt className="sr-only">Get more</dt>
                         <dd className="text-slate-400">
-                            <a href={album.url}>check it out on last fm</a>
+                            <a href={artist.url}>check it out on last fm</a>
                         </dd>
                     </div>
                 </dl>
@@ -69,3 +74,18 @@ export default function Album ({ album, user }) {
         </article>
     );
 }
+
+// [▼
+//     "name" => "Jidenna"
+//     "listeners" => "219695"
+//     "mbid" => ""
+//     "url" => "https://www.last.fm/music/Jidenna"
+//     "streamable" => "0"
+//     "image" => array:5 [▼
+//       0 => array:2 [▶]
+//       1 => array:2 [▶]
+//       2 => array:2 [▶]
+//       3 => array:2 [▶]
+//       4 => array:2 [▶]
+//     ]
+//   ]
