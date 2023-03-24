@@ -4,20 +4,28 @@ import Layout from "../shared/layout";
 import SearchAlbum from "./searchAlbum";
 import SearchArtist from "./searchArtist";
 
-export default function Search({ albums, artists, term, page, user, tab }) {
+export default function Search({
+    albums,
+    artists,
+    term,
+    page,
+    user,
+    tab,
+    flash,
+}) {
     const [searchTerm, setSearchTerm] = useState(term);
     const [selectedTab, setSelectedTab] = useState(tab);
+    const { error, success } = flash;
 
     useEffect(() => {
         setSearchTerm(term);
     });
 
-
     const handleSelectedTab = (value) => {
         setSelectedTab(value);
     };
     return (
-        <Layout page={"search"} user={user}>
+        <Layout page={"search"} user={user} error={error} success={success}>
             <div className="border-b border-gray-200 dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">

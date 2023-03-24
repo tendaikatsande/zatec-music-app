@@ -37,6 +37,6 @@ Route::get('artists/{artist}', [LastFmController::class, 'getArtistInfo']);
 
 
 Route::prefix('favourite')->middleware(['auth'])->group(function () {
-    Route::resource('/album', FavouriteAlbumController::class);
-    Route::resource('/artist', FavouriteArtistController::class);
+    Route::resource('/album', FavouriteAlbumController::class)->except(['update','edit','show']);
+    Route::resource('/artist', FavouriteArtistController::class)->except(['update','edit','show']);
 });

@@ -1,12 +1,16 @@
 import React from "react";
 import Layout from "../shared/layout";
 import { Link, router } from "@inertiajs/react";
-import { FaEye, FaHeart, FaTrash } from "react-icons/fa";
-export default function FavouriteAlbums({ favourites, user }) {
-    let pageData = { page: "favourite-albums", user: user };
-
+import { FaEye, FaTrash } from "react-icons/fa";
+export default function FavouriteAlbums({ favourites, user, flash }) {
+    const { success, error } = flash;
     return (
-        <Layout user={user}>
+        <Layout
+            user={user}
+            page={"favourite-albums"}
+            error={error}
+            success={success}
+        >
             <div className="flex flex-col">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -36,12 +40,13 @@ export default function FavouriteAlbums({ favourites, user }) {
                                             </td>
                                             <td className="whitespace-nowrap px-6 py-4 flex">
                                                 <Link
-                                                 className="p-2 hover:bg-slate-300 rounded-full"
+                                                    className="p-2 hover:bg-slate-300 rounded-full"
                                                     href={route(
                                                         "album.destroy",
                                                         favourite.id
                                                     )}
                                                     method="delete"
+                                                    as="button"
                                                 >
                                                     {" "}
                                                     <FaTrash className=" text-red-600" />

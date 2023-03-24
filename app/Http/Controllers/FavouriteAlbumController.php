@@ -41,11 +41,24 @@ class FavouriteAlbumController extends Controller
             'mbid' => [],
         ]);
 
+
+        //check if the album is favourited before
+        $exist = FavouriteAlbum::where('name', $request->input('name'))->where('artist', $request->input('artist'))->orWhere('mbid', $request->input('mbid'))->first();
+
+
+        if ($exist) {
+            return back()->with(["error" => "Album already in your favourites"]);
+        }
+
+
         $favourite = new FavouriteAlbum();
+
         $favourite->fill($request->all());
+
         $favourite->user()->associate($user);
         $favourite->save();
-        return redirect('/favourite/album');
+
+        return back()->with(["success" => "Album favourated"]);
     }
 
     /**
@@ -79,6 +92,6 @@ class FavouriteAlbumController extends Controller
     {
         //
         $favouriteAlbum->destroy($id);
-        return redirect('/favourite/album');
+        return back()->with(["success" => "Album favourated"]);
     }
 }

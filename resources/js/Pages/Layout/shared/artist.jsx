@@ -1,5 +1,5 @@
-import { router } from "@inertiajs/react";
 import React from "react";
+import { router } from "@inertiajs/react";
 import { FaEye, FaHeart } from "react-icons/fa";
 export default function Artist({ artist, user }) {
     return (
@@ -32,7 +32,7 @@ export default function Artist({ artist, user }) {
                                     onClick={() => {
                                         router.post(
                                             "/favourite/artist",
-                                            artist
+                                            artist,
                                         );
                                     }}
                                 >
@@ -45,9 +45,7 @@ export default function Artist({ artist, user }) {
                                 className="p-2 hover:bg-slate-300 rounded-full"
                                 title="view the artist"
                                 onClick={() => {
-                                    router.get(
-                                        `/artists/${artist.name}`
-                                    );
+                                    router.get(`/artists/${artist.name}`);
                                 }}
                             >
                                 <FaEye className=" hover:text-green-600 text-gray-400" />

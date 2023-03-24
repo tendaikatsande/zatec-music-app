@@ -14,6 +14,7 @@ return new class extends Migration
         // Add ggogle_id
         Schema::table('users',function($table){
             $table->string('google_id');
+            $table->string('avatar');
         });
     }
 
@@ -25,6 +26,7 @@ return new class extends Migration
         //
         Schema::table('users',function($table){
             $table->dropColumn('google_id');
+            $table->dropColumn('avatar');
         });
     }
 };

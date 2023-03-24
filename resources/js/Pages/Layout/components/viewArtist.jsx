@@ -2,10 +2,12 @@ import { router } from "@inertiajs/react";
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 import Layout from "../shared/layout";
-export default function ViewArtist({ artist, user }) {
+export default function ViewArtist({ artist, user ,flash}) {
+    const {success,error}= flash;
+
     console.log(artist);
     return (
-        <Layout page={"view-artist"} user={user}>
+        <Layout page={"view-artist"} user={user} error={error} success={success}>
             <div className="min-h-screen w-full mx-auto bg-gray-100 flex flex-col ">
                 <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-32">
                     <div className=" absolute inset-0 overflow-hidden bg-red-200">

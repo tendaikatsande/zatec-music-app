@@ -107,7 +107,7 @@ export default function Header({ user }) {
                                         aria-expanded="false"
                                     >
                                         <img
-                                            src={user.image}
+                                            src={user.avatar}
                                             className="rounded-full"
                                             height={"25px"}
                                             width={"25px"}

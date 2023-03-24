@@ -2,10 +2,11 @@ import { router } from "@inertiajs/react";
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 import Layout from "../shared/layout";
-export default function ViewAlbumDetails({ album, user }) {
+export default function ViewAlbumDetails({ album, user, flash }) {
+    const {success,error}= flash;
     console.log(album);
     return (
-        <Layout page={"view-album"} user={user}>
+        <Layout page={"view-album"} user={user} error={error} success={success}>
             <div className="min-h-screen w-full mx-auto bg-gray-100 flex flex-col ">
                 <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-32">
                     <div className=" absolute inset-0 overflow-hidden bg-red-200">
@@ -48,38 +49,37 @@ export default function ViewAlbumDetails({ album, user }) {
                                         {" "}
                                         Published - {album.wiki?.published}
                                     </span>
-
-                                    {user && <button
-                                        className="p-2 hover:bg-slate-300 rounded-full"
-                                        title="favourite the album"
-                                        onClick={() => {
-                                            router.post(
-                                                "/favourite/album",
-                                                album
-                                            );
-                                        }}
-                                    >
-                                        <FaHeart className=" hover:text-red-600 text-gray-400" />{" "}
-                                    </button> }
-                                    
+                                    {user && (
+                                        <button
+                                            className="p-2 hover:bg-slate-300 rounded-full"
+                                            title="favourite the album"
+                                            onClick={() => {
+                                                router.post(
+                                                    "/favourite/album",
+                                                    album
+                                                );
+                                            }}
+                                        >
+                                            <FaHeart className=" hover:text-red-600 text-gray-400" />{" "}
+                                        </button>
+                                    )}
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-                <div className="" dangerouslySetInnerHTML={{__html:album.wiki?.summary}}/>
-
-
+                <div
+                    className=""
+                    dangerouslySetInnerHTML={{ __html: album.wiki?.summary }}
+                />
 
                 <div>
-                    {album.tracks.track.map((track,i) => {
-                        return <div className=" bg-slate-300" key={i}>
-                            <div></div>
-                        </div>;
+                    {album.tracks.track.map((track, i) => {
+                        return (
+                            <div className=" bg-slate-300" key={i}>
+                                <div></div>
+                            </div>
+                        );
                     })}
                 </div>
             </div>

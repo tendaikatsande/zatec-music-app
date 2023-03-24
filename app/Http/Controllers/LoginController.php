@@ -15,7 +15,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return Inertia::render('/albums');
+        return Inertia::render('/');
     }
 
 
@@ -44,13 +44,14 @@ class LoginController extends Controller
             if ($finduser) {
                 //if the user exists, login and show dashboard
                 Auth::login($finduser);
-                return redirect('/albums');
+                return redirect('/');
             } else {
                 //user is not yet created, so create first
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'google_id' => $user->id,
+                    'avatar' => $user->avatar,
                     'password' => encrypt('')
                 ]);
 
@@ -58,7 +59,7 @@ class LoginController extends Controller
                 //login as the new user
                 Auth::login($newUser);
                 // go to the dashboard
-                return redirect('/albums');
+                return redirect('/');
             }
             //catch exceptions
         } catch (Exception $e) {
@@ -70,6 +71,6 @@ class LoginController extends Controller
     public function  signOut()
     {
         Auth::logout();
-        return redirect('/albums');
+        return redirect('/');
     }
 }

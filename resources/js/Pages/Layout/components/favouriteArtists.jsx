@@ -1,10 +1,16 @@
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import React from "react";
 import { FaEye, FaTrash } from "react-icons/fa";
 import Layout from "../shared/layout";
-export default function FavouriteArtists({ user, favourites }) {
+export default function FavouriteArtists({ user, favourites, flash }) {
+    const { success, error } = flash;
     return (
-        <Layout user={user} page={"favourite-artists"}>
+        <Layout
+            user={user}
+            page={"favourite-artists"}
+            error={error}
+            success={success}
+        >
             <div className="flex flex-col">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -31,10 +37,11 @@ export default function FavouriteArtists({ user, favourites }) {
                                                 <Link
                                                     className="p-2 hover:bg-slate-300 rounded-full"
                                                     href={route(
-                                                        "album.destroy",
+                                                        "artist.destroy",
                                                         favourite.id
                                                     )}
                                                     method="delete"
+                                                    as="button"
                                                 >
                                                     {" "}
                                                     <FaTrash className=" text-red-600" />
