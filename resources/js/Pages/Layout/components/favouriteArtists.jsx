@@ -27,8 +27,11 @@ export default function FavouriteArtists({ user, favourites, flash }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {favourites.data.map((favourite) => (
-                                        <tr className="border-b dark:border-neutral-500">
+                                    {favourites.data.map((favourite, i) => (
+                                        <tr
+                                            className="border-b dark:border-neutral-500"
+                                            key={i}
+                                        >
                                             <td className="whitespace-nowrap px-6 py-4">
                                                 {favourite.name}
                                             </td>
@@ -51,7 +54,7 @@ export default function FavouriteArtists({ user, favourites, flash }) {
                                                     title="view the artist"
                                                     onClick={() => {
                                                         router.get(
-                                                            `/artist/${favourite.name}`
+                                                            `/artists/${favourite.name}`
                                                         );
                                                     }}
                                                 >

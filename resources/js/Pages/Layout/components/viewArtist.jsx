@@ -2,14 +2,19 @@ import { router } from "@inertiajs/react";
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 import Layout from "../shared/layout";
-export default function ViewArtist({ artist, user ,flash}) {
-    const {success,error}= flash;
+export default function ViewArtist({ artist, user, flash }) {
+    const { success, error } = flash;
 
     console.log(artist);
     return (
-        <Layout page={"view-artist"} user={user} error={error} success={success}>
+        <Layout
+            page={"view-artist"}
+            user={user}
+            error={error}
+            success={success}
+        >
             <div className="min-h-screen w-full mx-auto bg-gray-100 flex flex-col ">
-                <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-32">
+                <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-14">
                     <div className=" absolute inset-0 overflow-hidden bg-red-200">
                         <img
                             className=" object-cover h-auto w-full"
@@ -37,8 +42,9 @@ export default function ViewArtist({ artist, user ,flash}) {
                         <div className="text-white pt-12">
                             <h3 className="font-bold">{artist.name}</h3>
                             <div className="text-sm opacity-60">
-                                {artist.artist}
+                                {artist.name}
                             </div>
+
                             <div className="mt-8 text-gray-400">
                                 <div className="flex items-center space-x-2 text-xs">
                                     <span>{artist.artist}</span>{" "}
@@ -68,19 +74,34 @@ export default function ViewArtist({ artist, user ,flash}) {
                         </div>
                     </div>
                 </div>
-                <div
-                    className=""
-                    dangerouslySetInnerHTML={{ __html: artist.bio?.summary }}
-                />
-
-                <div>
-                    {artist.similar.artist.map((_artist, i) => {
-                        return (
-                            <div className=" bg-slate-300" key={i}>
-                                <div>{_artist.name}</div>
-                            </div>
-                        );
-                    })}
+                <div className=" bg-slate-200 m-6 p-2 rounded ">
+                    <h1 className=" font-bold">Summary</h1>
+                    <div
+                        className=" text-justify"
+                        dangerouslySetInnerHTML={{
+                            __html: artist.bio?.summary,
+                        }}
+                    />
+                </div>
+                <div className=" bg-slate-200 m-6 p-2 rounded ">
+                    <h1 className=" font-bold">Similar Artists </h1>
+                    <ul>
+                        {artist.similar.artist.map((_artist, i) => {
+                            return (
+                                <li className="my-2 p-2 hover:bg-slate-50" key={i}>
+                                    <div className="flex">
+                                        <a
+                                            href={_artist.url}
+                                            target="_blank"
+                                            className="flex-grow"
+                                        >
+                                            {_artist.name}
+                                        </a>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
             </div>
         </Layout>

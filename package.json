@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@inertiajs/react": "^1.0.2",
+        "react-hot-toast": "^2.4.0",
         "react-icons": "^4.8.0"
     }
 }

@@ -3,12 +3,12 @@ import React from "react";
 import { FaHeart } from "react-icons/fa";
 import Layout from "../shared/layout";
 export default function ViewAlbumDetails({ album, user, flash }) {
-    const {success,error}= flash;
+    const { success, error } = flash;
     console.log(album);
     return (
         <Layout page={"view-album"} user={user} error={error} success={success}>
             <div className="min-h-screen w-full mx-auto bg-gray-100 flex flex-col ">
-                <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-32">
+                <div className="relative  w-full h-36 bg-white  shadow-lg overflow-hidde mb-12">
                     <div className=" absolute inset-0 overflow-hidden bg-red-200">
                         <img
                             className=" object-cover h-auto w-full"
@@ -68,68 +68,51 @@ export default function ViewAlbumDetails({ album, user, flash }) {
                         </div>
                     </div>
                 </div>
-                <div
-                    className=""
-                    dangerouslySetInnerHTML={{ __html: album.wiki?.summary }}
-                />
 
-                <div>
-                    {album.tracks.track.map((track, i) => {
-                        return (
-                            <div className=" bg-slate-300" key={i}>
-                                <div></div>
-                            </div>
-                        );
-                    })}
+                <div className=" bg-slate-200 m-6 p-2 rounded ">
+                    <h1 className=" font-bold">Summary</h1>
+                    <div
+                        className=" text-justify"
+                        dangerouslySetInnerHTML={{
+                            __html: album.wiki?.summary,
+                        }}
+                    />
+                </div>
+                <div className=" bg-slate-200 m-6 p-2 rounded ">
+                    <h1 className=" font-bold">
+                        Tracks{" "}
+                        <span className=" border border-gray-800 rounded  px-1 font-thin">
+                            {album.tracks.track.length}
+                        </span>
+                    </h1>
+                    <ul>
+                        {album.tracks.track.map((track, i) => {
+                            return (
+                                <li
+                                    className=" my-2 p-2 hover:bg-slate-50 "
+                                    key={i}
+                                >
+                                    <div className="flex">
+                                        <a href={track.url} target="_blank" className="flex-grow">
+                                            {track.name}{" "}
+                                            {track.duration && (
+                                                <span className=" mr-2 px-1 border border-gray-300 rounded font-thin text-sm">
+                                                    {Number(
+                                                        track.duration / 60
+                                                    ).toFixed(2)} 
+                                                    min
+                                                </span>
+                                            )}
+                                        </a>
+
+                                        <span>{track.artist.name}</span>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
             </div>
         </Layout>
     );
 }
-
-// "artist" => "Erik Wøllo"
-//   "mbid" => "a6c38161-25e7-453a-a852-1961a27e386f"
-//   "tags" => array:1 [▶]
-//   "name" => "Timelines"
-//   "image" => array:6 [▼
-//     0 => array:2 [▼
-//       "size" => "small"
-//       "#text" => "https://lastfm.freetls.fastly.net/i/u/34s/10e52d6f33296b1cbdfbfd2e85ac4c77.png"
-//     ]
-//     1 => array:2 [▼
-//       "size" => "medium"
-//       "#text" => "https://lastfm.freetls.fastly.net/i/u/64s/10e52d6f33296b1cbdfbfd2e85ac4c77.png"
-//     ]
-//     2 => array:2 [▼
-//       "size" => "large"
-//       "#text" => "https://lastfm.freetls.fastly.net/i/u/174s/10e52d6f33296b1cbdfbfd2e85ac4c77.png"
-//     ]
-//     3 => array:2 [▼
-//       "size" => "extralarge"
-//       "#text" => "https://lastfm.freetls.fastly.net/i/u/300x300/10e52d6f33296b1cbdfbfd2e85ac4c77.png"
-//     ]
-//     4 => array:2 [▼
-//       "size" => "mega"
-//       "#text" => "https://lastfm.freetls.fastly.net/i/u/300x300/10e52d6f33296b1cbdfbfd2e85ac4c77.png"
-//     ]
-//     5 => array:2 [▼
-//       "size" => ""
-//       "#text" => "https://lastfm.freetls.fastly.net/i/u/300x300/10e52d6f33296b1cbdfbfd2e85ac4c77.png"
-//     ]
-//   ]
-//   "tracks" => array:1 [▼
-//     "track" => array:9 [▼
-//       0 => array:6 [▶]
-//       1 => array:6 [▶]
-//       2 => array:6 [▶]
-//       3 => array:6 [▶]
-//       4 => array:6 [▶]
-//       5 => array:6 [▶]
-//       6 => array:6 [▶]
-//       7 => array:6 [▶]
-//       8 => array:6 [▶]
-//     ]
-//   ]
-//   "listeners" => "808"
-//   "playcount" => "15728"
-//   "url" => "https://www.last.fm/music/Erik+W%C3%B8llo/Timelines

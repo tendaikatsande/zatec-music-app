@@ -44,7 +44,7 @@ class LoginController extends Controller
             if ($finduser) {
                 //if the user exists, login and show dashboard
                 Auth::login($finduser);
-                return redirect('/');
+                return redirect('/')->with(['success' => "Welcome back $finduser->name"]);
             } else {
                 //user is not yet created, so create first
                 $newUser = User::create([
@@ -59,11 +59,11 @@ class LoginController extends Controller
                 //login as the new user
                 Auth::login($newUser);
                 // go to the dashboard
-                return redirect('/');
+                return redirect('/')->with(['success' => "Welcome on board $newUser->name"]);
             }
             //catch exceptions
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return redirect('/')->with(['error' => $e->getMessage()]);
         }
     }
 
