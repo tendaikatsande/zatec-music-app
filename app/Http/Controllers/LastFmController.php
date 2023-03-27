@@ -40,7 +40,7 @@ class LastFmController extends Controller
                 $albums = isset($albums['results']['albummatches']['album']) ? $albums['results']['albummatches']['album'] : [];
             } catch (\Throwable $th) {
                 //throw $th;
-                return Inertia::render('Layout/components/search', ['albums' => $albums, 'term' => $term, 'page' => $page, 'totalResults' => $totalResults, 'user' => Auth::user(), 'tab' => 1])->with(['error' => $th->getMessage()]);
+                return  back()->with(["error" => $th->getMessage()]);
             }
         }
 
@@ -51,7 +51,7 @@ class LastFmController extends Controller
      * @getAlbumInfo
      */
 
-    public function getAlbumInfo(Request $request, $album, $artist)
+    public function getAlbumInfo( $album, $artist)
     {
         $albumData = null;
         if ($album && $artist) {
@@ -63,6 +63,7 @@ class LastFmController extends Controller
                 $albumData = $albumData['album'];
             } catch (\Throwable $th) {
                 //throw $th;
+              return  back()->with(["error" => $th->getMessage()]);
             }
         }
         return Inertia::render('Layout/components/viewAlbum', ['album' => $albumData, 'user' => Auth::user()]);
@@ -86,12 +87,13 @@ class LastFmController extends Controller
                 $artists = isset($artists['results']['artistmatches']['artist']) ? $artists['results']['artistmatches']['artist'] : [];
             } catch (\Throwable $th) {
                 //throw $th;
+                return  back()->with(["error" => $th->getMessage()]);
             }
         }
 
         return Inertia::render('Layout/components/search', ['artists' => $artists, 'term' => $term, 'page' => $page, 'totalResults' => $totalResults, 'user' => Auth::user(), 'tab' => 2]);
     }
-    public function getArtistInfo(Request $request, $artist)
+    public function getArtistInfo($artist)
     {
         $artistData = null;
         if ($artist) {
@@ -102,6 +104,7 @@ class LastFmController extends Controller
                 $artistData = $artistData['artist'];
             } catch (\Throwable $th) {
                 //throw $th;
+                return  back()->with(["error" => $th->getMessage()]);
             }
         }
         return Inertia::render('Layout/components/viewArtist', ['artist' => $artistData, 'user' => Auth::user(), 'tab' => 1]);

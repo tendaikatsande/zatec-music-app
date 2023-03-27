@@ -5,27 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\FavouriteAlbum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class FavouriteAlbumController extends Controller
 {
+
+    protected $favouriteAlbum;
+    public function __construct(FavouriteAlbum $favouriteAlbum)
+    {
+        $this->favouriteAlbum = $favouriteAlbum;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         //
-        $favourites = FavouriteAlbum::paginate(8);
+        $favourites = $this->favouriteAlbum::paginate(8);
         // dd($favourites);
         return Inertia::render('Layout/components/favouriteAlbums', ['user' => Auth::user(), 'favourites' => $favourites]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,15 +36,26 @@ class FavouriteAlbumController extends Controller
 
         $user = Auth::user();
         //
-        $validated =  $request->validate([
-            'name' => ['required'],
-            'artist' => ['required'],
-            'mbid' => [],
-        ]);
+
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'artist' => 'required',
+                'mbid' => ''
+            ]
+        );
+
+
+        if ($validator->fails()) {
+            return back()->with(["error" => "Incomplete Data"]);
+        }
+
 
 
         //check if the album is favourited before
-        $exist = FavouriteAlbum::where('name', $request->input('name'))->where('artist', $request->input('artist'))->orWhere('mbid', $request->input('mbid'))->first();
+        $exist = $this->favouriteAlbum::where('name', $request->input('name'))->where('artist', $request->input('artist'))->orWhere('mbid', $request->input('mbid'))->first();
 
 
         if ($exist) {
@@ -61,37 +73,14 @@ class FavouriteAlbumController extends Controller
         return back()->with(["success" => "Album favourated"]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(FavouriteAlbum $favouriteAlbum)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FavouriteAlbum $favouriteAlbum)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, FavouriteAlbum $favouriteAlbum)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FavouriteAlbum $favouriteAlbum, $id)
+    public function destroy($id)
     {
         //
-        $favouriteAlbum->destroy($id);
-        return back()->with(["success" => "Album favourated"]);
+        $this->favouriteAlbum->destroy($id);
+        return back()->with(["success" => "Album unfavourated"]);
     }
 }
